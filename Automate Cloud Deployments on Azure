@@ -1,0 +1,194 @@
+# ⚙️ Automate Cloud Deployments on Azure
+
+![Azure](https://img.shields.io/badge/Microsoft_Azure-0089D6?style=for-the-badge&logo=microsoft-azure&logoColor=white)
+![PowerShell](https://img.shields.io/badge/PowerShell-5391FE?style=for-the-badge&logo=powershell&logoColor=white)
+![Azure CLI](https://img.shields.io/badge/Azure_CLI-0089D6?style=for-the-badge&logo=microsoft-azure&logoColor=white)
+![IaC](https://img.shields.io/badge/Infrastructure_as_Code-0D7377?style=for-the-badge&logoColor=white)
+![Status](https://img.shields.io/badge/Status-Completed-success?style=for-the-badge)
+
+---
+
+## 📋 Overview
+
+This project demonstrates end-to-end automation of cloud infrastructure deployments on Microsoft Azure. Rather than relying on manual Azure portal configuration — which is slow, error-prone, and impossible to audit — this project implements scripted, repeatable, and version-controlled deployment workflows using Azure CLI, PowerShell, and ARM template principles.
+
+Automation is the defining skill that separates a junior cloud user from a mid-level cloud engineer. Anyone can click through a portal. Not everyone can write the script that provisions the same environment 100 times with zero configuration drift.
+
+This project proves that capability.
+
+---
+
+## 🎯 Objectives
+
+- Replace manual portal-based deployments with scripted, repeatable workflows
+- Enforce security controls (NSGs, RBAC) automatically at deployment time
+- Eliminate configuration drift across cloud environments
+- Build audit-ready infrastructure with version-controlled deployment records
+- Demonstrate Infrastructure as Code (IaC) principles aligned with AZ-104 objectives
+
+---
+
+## 🏗️ Architecture Overview
+
+```
+┌─────────────────────────────────────────────┐
+│           Deployment Script                  │
+│  (Azure CLI / PowerShell / ARM Template)    │
+└──────────────────┬──────────────────────────┘
+                   │
+                   ▼
+┌─────────────────────────────────────────────┐
+│            Azure Subscription               │
+│                                             │
+│  ┌─────────────────────────────────────┐   │
+│  │         Resource Group              │   │
+│  │                                     │   │
+│  │  ┌──────────┐    ┌──────────────┐  │   │
+│  │  │  Virtual  │    │   Network    │  │   │
+│  │  │ Network   │    │  Security    │  │   │
+│  │  │  (VNet)   │    │   Group      │  │   │
+│  │  └──────────┘    │   (NSG)      │  │   │
+│  │                   └──────────────┘  │   │
+│  │  ┌──────────┐    ┌──────────────┐  │   │
+│  │  │  Virtual  │    │    RBAC      │  │   │
+│  │  │ Machine   │    │  Assignment  │  │   │
+│  │  │  (VM)     │    │              │  │   │
+│  │  └──────────┘    └──────────────┘  │   │
+│  └─────────────────────────────────────┘   │
+└─────────────────────────────────────────────┘
+```
+
+---
+
+## 🛠️ Skills & Technologies Applied
+
+| Category | Tools & Concepts |
+|---|---|
+| **Automation Tools** | Azure CLI, PowerShell, ARM Templates |
+| **Infrastructure as Code** | Declarative deployment configurations, parameterized scripts |
+| **Compute** | Automated VM provisioning — size, OS image, networking |
+| **Networking** | Automated VNet creation, subnet configuration, public IP assignment |
+| **Security** | Scripted NSG rules, automated RBAC assignment, least-privilege enforcement |
+| **Identity & Access** | Role-Based Access Control (RBAC) scoped at resource group level |
+| **Resource Governance** | Automated tagging, naming conventions, lifecycle management |
+| **Cost Management** | Automated resource cleanup scripts, environment teardown |
+| **DevOps Principles** | Repeatable deployments, version-controlled infrastructure, configuration consistency |
+
+---
+
+## 📋 Key Steps Completed
+
+### Step 1 — Environment Setup & Authentication
+- Configured Azure CLI with authenticated session using `az login`
+- Set active subscription to target deployment environment
+- Established consistent naming conventions and variable structure for all scripts
+
+### Step 2 — Automated Resource Group Provisioning
+- Scripted resource group creation with standardized naming and location parameters
+- Applied resource tags automatically at creation time for billing and governance tracking
+- Validated resource group existence before deployment to prevent duplicate creation errors
+
+### Step 3 — Virtual Network & Subnet Automation
+- Automated VNet creation with defined address space using Azure CLI
+- Scripted subnet configuration within the VNet for logical network segmentation
+- Applied consistent network architecture across deployments without manual portal steps
+
+### Step 4 — Network Security Group (NSG) Automation
+- Scripted NSG creation and rule definition in a single deployment pass
+- Automated inbound/outbound security rules — allowing only required ports and denying all others by default
+- Attached NSG to subnet automatically — ensuring every VM deployed into the network inherits security rules
+
+### Step 5 — Virtual Machine Deployment via Script
+- Automated VM provisioning including compute size, OS image, admin credentials, and network attachment
+- Eliminated manual portal configuration — entire VM environment provisioned from a single script execution
+- Validated successful deployment programmatically before proceeding to access control configuration
+
+### Step 6 — Automated RBAC Assignment
+- Scripted role assignments scoped to the resource group level
+- Applied least-privilege principles — roles assigned only for what the deployment requires
+- Automated access control eliminates the human error risk of manual permission configuration
+
+### Step 7 — Repeatable Deployment Workflow
+- Parameterized all scripts for reuse across different environments (dev, test, production)
+- Built idempotent deployment logic — scripts can run multiple times without creating duplicate or conflicting resources
+- Documented all deployment steps in version-controlled format for full auditability
+
+### Step 8 — Automated Resource Cleanup
+- Built teardown scripts to delete all provisioned resources after lab completion
+- Automated cleanup prevents orphaned resources and eliminates unnecessary Azure costs
+- Validates complete resource removal programmatically after teardown
+
+---
+
+## 🔐 Security Concepts Demonstrated
+
+| Concept | Implementation |
+|---|---|
+| **Defense in Depth** | NSG rules restrict traffic at the network layer before it reaches the VM |
+| **Least Privilege** | RBAC roles scoped to minimum required permissions at deployment time |
+| **Configuration Consistency** | Scripted deployments eliminate human error that creates security gaps |
+| **Audit Trail** | Version-controlled scripts create a documented record of every infrastructure change |
+| **Automated Compliance** | Security controls applied at provisioning time — not manually added later |
+| **Zero Trust Principles** | No implicit trust — access controlled explicitly through RBAC and NSG rules |
+
+---
+
+## 💡 Why This Matters in Enterprise Environments
+
+Manual cloud deployments fail at scale:
+
+- **10 environments manually configured = 10 opportunities for security gaps**
+- **Automated deployments = identical security posture across every environment**
+
+In enterprise cloud environments, automation isn't optional — it's required. Configuration management, compliance enforcement, and cost control all depend on scripted, repeatable infrastructure. This project demonstrates the foundational automation skills required in:
+
+- Cloud Engineer roles managing multi-environment Azure deployments
+- Cybersecurity roles enforcing consistent security policy across infrastructure
+- DevOps roles building CI/CD pipelines that provision test and production environments automatically
+
+---
+
+## 📊 Deployment Workflow Summary
+
+```
+1. Authenticate  →  az login / service principal
+2. Set scope     →  subscription + resource group
+3. Network       →  VNet → Subnet → NSG → Rules
+4. Compute       →  VM → OS → Size → Credentials
+5. Security      →  NSG attach → RBAC assign
+6. Validate      →  confirm resources + access
+7. Cleanup       →  teardown script → cost control
+```
+
+---
+
+## 🎓 Certifications This Supports
+
+| Certification | Relevant Concepts |
+|---|---|
+| **Microsoft AZ-104** *(In Progress)* | Azure CLI, ARM templates, NSGs, RBAC, VM deployment automation |
+| **Microsoft AZ-900** *(In Progress)* | Cloud concepts, Azure resource management, IaC principles |
+| **CompTIA Security+** *(In Progress)* | Access control, least privilege, security policy enforcement |
+
+---
+
+## 🗂️ Full Project Portfolio
+
+| # | Project | Platform | Key Skills |
+|---|---|---|---|
+| 1 | Windows VM Deployment | Azure | NSG, RBAC, RDP, AZ-104 |
+| 2 | Linux VM Deployment | Azure | SSH, NSG, Linux, AZ-104 |
+| 3 | Cloud Storage Website | Azure | Blob Storage, SAS, AZ-900 |
+| 4 | **Automate Cloud Deployments** | **Azure** | **CLI, IaC, ARM, DevOps** |
+
+---
+
+## 👤 Author
+
+**Brandon Coleman**
+IT Systems Analyst | Cybersecurity · Azure Cloud · Data Analytics
+
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-0077B5?style=flat&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/)
+[![GitHub](https://img.shields.io/badge/GitHub-100000?style=flat&logo=github&logoColor=white)](https://github.com/Bcoleman356)
+
+📍 Mansfield, TX
